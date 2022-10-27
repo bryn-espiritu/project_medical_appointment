@@ -1,40 +1,37 @@
 class AppointmentsController < ApplicationController
-  before_action :set_appointment, only: %i[ show edit update destroy ]
+  before_action :set_appointment, only: [ :show, :edit, :update, :destroy ]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :validate_appointment_user, only: [:edit, :update, :destroy]
 
-  # GET /appointments or /appointments.json
+
   def index
-    @appointments = Appointment.all
+    @appointments = Appointment.includes(:user).all
   end
 
-  # GET /appointments/1 or /appointments/1.json
-  def show
-  end
-
-  # GET /appointments/new
   def new
     @appointment = Appointment.new
   end
 
-  # GET /appointments/1/edit
+  def show
+  end
+
   def edit
   end
 
-  # POST /appointments or /appointments.json
   def create
     @appointment = Appointment.new(appointment_params)
+    @appointment.user = current_user
 
     respond_to do |format|
       if @appointment.save
         format.html { redirect_to appointment_url(@appointment), notice: "Appointment was successfully created." }
         format.json { render :show, status: :created, location: @appointment }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
+        render :new, status: :unprocessable_entity
       end
     end
   end
 
-  # PATCH/PUT /appointments/1 or /appointments/1.json
   def update
     respond_to do |format|
       if @appointment.update(appointment_params)
@@ -58,13 +55,21 @@ class AppointmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_appointment
       @appointment = Appointment.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def appointment_params
-      params.fetch(:appointment, {})
+      params.require(:appointment).permit(:first_name, :last_name, :address, :phone_number)
     end
-end
+
+  def validate_appointment_user
+    unless @appointment.user == current_user
+      flash[:notice] = 'the post not belongs to you'
+      redirect_to appointment_path
+    end
+  end
+
+
+  end
