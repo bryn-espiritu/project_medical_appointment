@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>App</title>
+    <title>Medical Appointment</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,9 +11,40 @@
   </head>
 
   <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <h1 class="badge rounded-pill bg-warning text-dark ms-2">Medical Appointment</h1>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'View Lists', appointments_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+           <p class="nav-link active"><%= "Good Day! #{current_user.email}" if current_user %></p>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          <%= link_to "Sign in", new_user_session_path, class: 'btn btn-success' unless user_signed_in? %>
+          <%= button_to 'Sign-Out', destroy_user_session_path, class: 'btn btn-warning', method: :delete if user_signed_in? %>
+        </span>
+      </div>
+    </div>
+  </nav>
 
-    <%= yield %>
+  <p class="notice" style="color: green"><%= notice %></p>
+  <p class="alert" style="color: red"><%= alert %></p>
+  <%= yield %>
+
   </body>
+  <footer class="text-center fixed-bottom text-lg-start bg-light text-muted">
+    <div class="text-center p-4">
+      © Designed by: <strong style="color: green; ">Bryn E.</strong>
+    </div>
+  </footer>
 </html>
