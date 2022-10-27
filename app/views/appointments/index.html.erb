@@ -1,14 +1,35 @@
-<p style="color: green"><%= notice %></p>
 
-<h1>Appointments</h1>
-
-<div id="appointments">
+<h1 class="text-center">Medical Appointment List  <span><%= link_to "Book an Appointment", new_appointment_path, class: "badge rounded-pill text-bg-success" %></span></h1>
+<table class="table text-center">
+  <thead class="text-bg-info">
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Address</th>
+    <th>Phone Number</th>
+    <th>Email Address</th>
+    <th>Service Type</th>
+    <th>Payment Type</th>
+    <th colspan="2">Schedule</th>
+    <th colspan="3">Action</th>
+  </tr>
+  </thead>
   <% @appointments.each do |appointment| %>
-    <%= render appointment %>
-    <p>
-      <%= link_to "Show this appointment", appointment %>
-    </p>
+  <tr>
+    <td><%= appointment.first_name %></td>
+    <td><%= appointment.last_name %></td>
+    <td><%= appointment.address %></td>
+    <td><%= appointment.phone_number %></td>
+    <td><%= appointment.user.email %></td>
+    <td>Medical Checkup</td>
+    <td>Over the Counter</td>
+    <td>10 - 27 - 2022</td>
+    <td>12:00 PM</td>
+    <td><%= link_to 'Edit', edit_appointment_path(appointment), class: "btn btn-warning"if appointment.user == current_user %></td>
+    <td><%= link_to "Show", appointment_path(appointment), class: "btn btn-info" %></td>
+    <td><%= button_to "X", appointment_path(appointment), method: :delete, class: "btn btn-danger" if appointment.user == current_user %></td>
+  </tr>
   <% end %>
-</div>
+</table>
 
-<%= link_to "New appointment", new_appointment_path %>
+
