@@ -3,6 +3,7 @@
 <table class="table text-center">
   <thead class="text-bg-info">
   <tr>
+    <th>Patient's ID</th>
     <th>First Name</th>
     <th>Last Name</th>
     <th>Address</th>
@@ -11,11 +12,13 @@
     <th>Service Type</th>
     <th>Payment Type</th>
     <th colspan="2">Schedule</th>
+    <th colspan="2">Note Section</th>
     <th colspan="3">Action</th>
   </tr>
   </thead>
   <% @appointments.each do |appointment| %>
   <tr>
+    <td><%= appointment.id %></td>
     <td><%= appointment.first_name %></td>
     <td><%= appointment.last_name %></td>
     <td><%= appointment.address %></td>
@@ -25,6 +28,8 @@
     <td>Over the Counter</td>
     <td>10 - 27 - 2022</td>
     <td>12:00 PM</td>
+    <td><%= link_to 'check', appointment_notes_path(appointment), class: "btn btn-info" %></td>
+    <td><%= link_to 'create', new_appointment_note_path(appointment), class: "btn btn-success" %></td>
     <td><%= link_to 'Edit', edit_appointment_path(appointment), class: "btn btn-warning"if appointment.user == current_user %></td>
     <td><%= link_to "Show", appointment_path(appointment), class: "btn btn-info" %></td>
     <td><%= button_to "X", appointment_path(appointment), method: :delete, class: "btn btn-danger" if appointment.user == current_user %></td>
