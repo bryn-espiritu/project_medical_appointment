@@ -1,0 +1,21 @@
+
+
+<%= form_with model: note, url: path, data: { turbo: false } do |f| %>
+  <% if note.errors.any? %>
+    <ul>
+      <% note.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= f.label :subject %>
+    <%= f.text_field :subject %>
+  </div>
+
+  <div>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
+  <%= f.submit %>
+<% end %>
