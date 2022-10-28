@@ -1,0 +1,12 @@
+<h1>Patient <%= @appointment.first_name %></h1>
+<h2>Notes and Attachment</h2>
+<ul>
+  <% @notes.each do |note| %>
+    <li>
+      <%= note.subject %>(<%= note.created_at %>) by <%= note.user.email %>
+      <%= note.content %>
+      <%= link_to 'edit', edit_appointment_note_path(@appointment, note) %>
+      <%= button_to 'X', appointment_note_path(@appointment, note), method: :delete %>
+    </li>
+  <% end %>
+</ul>
