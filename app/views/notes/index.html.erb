@@ -1,12 +1,25 @@
-<h1>Patient <%= @appointment.first_name %></h1>
-<h2>Notes and Attachment</h2>
-<ul>
-  <% @notes.each do |note| %>
-    <li>
-      <%= note.subject %>(<%= note.created_at %>) by <%= note.user.email %>
-      <%= note.content %>
-      <%= link_to 'edit', edit_appointment_note_path(@appointment, note) %>
-      <%= button_to 'X', appointment_note_path(@appointment, note), method: :delete %>
-    </li>
-  <% end %>
-</ul>
+<h1 class="text-center" style="color: #0a53be"><strong>Patient </strong></h1>
+<h2 class="">Notes and Attachment <span><%= link_to "Add Note", new_appointment_note_path, class: "badge rounded-pill text-bg-success" %></span></h2>
+
+<% @notes.each do |note| %>
+
+<div class="card d-inline-block" style="width: 600px; padding: 20px; margin: 10px" >
+  <div class="card-body ">
+    <h5 class="card-title" style="color: #0c63e4"><%= note.subject %></h5>
+    <p class="card-text text-break"><%= note.content  %>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><%= @appointment.first_name %> <%= @appointment.last_name %></li>
+    <li class="list-group-item"><%= note.created_at %></li>
+    <li class="list-group-item"><%= note.user.email %></li>
+  </ul>
+  <div class="card-body">
+    <ul class="list-group list-group-horizontal p-2" style="list-style-type: none">
+      <li><%= link_to '✎', edit_appointment_note_path(@appointment, note), class: "card-link btn btn-warning fs-5" %></li>
+      <li><%= button_to '⌫', appointment_note_path(@appointment, note), method: :delete, class: "card-link btn btn-danger fs-5" %></li>
+    </ul>
+
+
+  </div>
+</div>
+<% end %>
