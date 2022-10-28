@@ -1,0 +1,3 @@
+
+<h2>Note <%= @note.id %></h2>
+<%= render partial: 'form', locals: {appointment: @appointment, note: @note, path: appointment_note_path(@appointment, @note)} %>
