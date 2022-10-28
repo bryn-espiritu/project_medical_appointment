@@ -2,6 +2,20 @@
 
 <%= render @appointment %>
 
+
+<div>
+  <ul>
+    <li><%= @appointment.id %></li>
+    <li><%= @appointment.first_name %></li>
+    <li><%= @appointment.last_name %></li>
+    <li><%= @appointment.address %></li>
+    <li><%= @appointment.phone_number %></li>
+
+  </ul>
+</div>
+
+
+
 <div>
   <%= link_to "Edit this appointment", edit_appointment_path(@appointment) %> |
   <%= link_to "Back to appointments", appointments_path %>
