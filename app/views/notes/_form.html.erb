@@ -1,5 +1,4 @@
 
-
 <%= form_with model: note, url: path, data: { turbo: false } do |f| %>
   <% if note.errors.any? %>
     <ul>
@@ -8,14 +7,21 @@
       <% end %>
     </ul>
   <% end %>
-  <div>
-    <%= f.label :subject %>
-    <%= f.text_field :subject %>
+
+  <div class="d-flex justify-content-center">
+    <div class="form-control w-50 p-5">
+      <div class="mb-3 mx-auto">
+        <label for="exampleFormControlInput1" class="form-label ">Subject</label>
+        <%= f.text_field :subject, class: "form-control", id: "exampleFormControlInput1" %>
+      </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Add Notes</label>
+        <%= f.text_area :content, style: "height: 200px",class: "form-control text-dark", id: "exampleFormControlInput1", input_html: {rows: 3} %>
+    </div>
+      <div class="text-center">
+      <%= f.submit class: "btn btn-success" %>
+      </div>
+    </div>
   </div>
 
-  <div>
-    <%= f.label :content %>
-    <%= f.text_area :content %>
-  </div>
-  <%= f.submit %>
 <% end %>
